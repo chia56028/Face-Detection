@@ -24,7 +24,9 @@ while True:
     #Use MTCNN to detect faces
     result = detector.detect_faces(frame)
     if result != []:
+        k = 0
         for person in result:
+            k += 1
             bounding_box = person['box']
             keypoints = person['keypoints']
 
@@ -39,7 +41,7 @@ while True:
             padding = 20
             if t%n==0:
                 face_image = frame[y-padding:y+h+padding, x-padding:x+w+padding]
-                cv2.imwrite(img_path+"/img_item_"+str(t)+".png", face_image)
+                cv2.imwrite(img_path+"/img_item"+"_"+str(k)+"_"+str(t)+".png", face_image)
             
             # 框出人臉
             cv2.rectangle(frame,
