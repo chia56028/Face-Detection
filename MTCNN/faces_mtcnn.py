@@ -12,6 +12,7 @@ _CAMERA_WIDTH = 640  #攝影機擷取影像寬度
 _CAMERA_HEIGH = 480  #攝影機擷取影像高度
 
 cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(1)
 
 # 設定擷取影像的尺寸大小
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, _CAMERA_WIDTH)
@@ -41,8 +42,14 @@ while True:
             padding = 20
             if t%n==0:
                 face_image = frame[y-padding:y+h+padding, x-padding:x+w+padding]
-                cv2.imwrite(img_path+"/img_item"+"_"+str(k)+"_"+str(t)+".png", face_image)
-            
+                storepath = img_path+"/img_item"+"_"+str(k)+"_"+str(t)+".png"
+                
+                cv2.imwrite(storepath, face_image)
+                test = cv2.imread(storepath)
+                if test is None :
+                    os.remove(storepath)
+
+
             # 框出人臉
             cv2.rectangle(frame,
                           (x, y),
